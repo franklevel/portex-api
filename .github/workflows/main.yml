@@ -22,7 +22,7 @@ jobs:
           node-version: "20.x"
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Set up Serverless Framework
         run: npm install -g serverless@3
