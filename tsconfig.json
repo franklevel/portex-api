@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Soporte moderno para async/await
+    "module": "commonjs", // Compatible con Node.js
+    "lib": ["ES2020"],
+    "allowJs": true,
+    "outDir": "./dist", // Salida de los archivos compilados
+    "rootDir": "./src", // Directorio raíz de los archivos fuente
+    "strict": true, // Estrictas verificaciones de tipo
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true, // Permite los decoradores experimentales
+    "emitDecoratorMetadata": true, // Emite metadatos para los decoradores
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

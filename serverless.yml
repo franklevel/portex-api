@@ -1,0 +1,169 @@
+service: portex-api
+build:
+  esbuild: false
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: dev
+  region: us-east-1
+  environment:
+    DB_HOST: localhost
+    DB_PORT: 5432
+    DB_USERNAME: portex_user
+    DB_PASSWORD: portex_password
+    DB_NAME: portex
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  authorizations:
+    handler: src/handlers/authorizations.handler
+    events:
+      - http:
+          path: authorizations/{proxy+}
+          method: any
+
+  users:
+    handler: src/handlers/users.handler
+    events:
+      - http:
+          path: users/{proxy+}
+          method: any
+
+  reservations:
+    handler: src/handlers/reservations.handler
+    events:
+      - http:
+          path: reservations/{proxy+}
+          method: any
+
+  notifications:
+    handler: src/handlers/notifications.handler
+    events:
+      - http:
+          path: notifications/{proxy+}
+          method: any
+
+  devices:
+    handler: src/handlers/devices.handler
+    events:
+      - http:
+          path: devices/{proxy+}
+          method: any
+
+  events:
+    handler: src/handlers/events.handler
+    events:
+      - http:
+          path: events/{proxy+}
+          method: any
+          
+  falicities:
+    handler: src/handlers/facilities.handler
+    events:
+      - http:
+          path: facilities/{proxy+}
+          method: any
+
+  packages:
+    handler: src/handlers/packages.handler
+    events:
+      - http:
+          path: packages/{proxy+}
+          method: any
+
+  personnel:
+    handler: src/handlers/personnel.handler
+    events:
+      - http:
+          path: personnel/{proxy+}
+          method: any
+
+  residents:
+    handler: src/handlers/residents.handler
+    events:
+      - http:
+          path: residents/{proxy+}
+          method: any
+
+  transactions:
+    handler: src/handlers/transactions.handler
+    events:
+      - http:
+          path: transactions/{proxy+}
+          method: any
+
+  visitors:
+    handler: src/handlers/visitors.handler
+    events:
+      - http:
+          path: visitors/{proxy+}
+          method: any
+
+  warehouses:
+    handler: src/handlers/warehouses.handler
+    events:
+      - http:
+          path: warehouses/{proxy+}
+          method: any
+
+  # Agregar los demás handlers aquí...
+
+resources:
+  Resources:
+    DeploymentBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: portex-api-deployment-bucket-dev
+        AccessControl: Private
+        VersioningConfiguration:
+          Status: Enabled
+#    DeploymentBucketPolicy:
+#      Type: AWS::S3::BucketPolicy
+#      Properties:
+#        Bucket: !Ref DeploymentBucket
+#        PolicyDocument:
+#          Version: "2012-10-17"
+#          Statement:
+#            - Effect: Allow
+#              Principal: "*"
+#              Action:
+#                - s3:GetObject
+#                - s3:PutObject
+#                - s3:PutBucketPolicy
+#              Resource: !GetAtt DeploymentBucket.Arn
+    ApiGatewayCloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Enabled: true
+          Origins:
+            - DomainName: !Sub '${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com'
+              Id: apiGatewayOrigin
+              CustomOriginConfig:
+                OriginProtocolPolicy: https-only
+          DefaultCacheBehavior:
+            TargetOriginId: apiGatewayOrigin
+            ViewerProtocolPolicy: redirect-to-https
+            AllowedMethods:
+              - HEAD
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            ForwardedValues:
+              QueryString: true
+              Headers:
+                - Authorization
+
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: portex-api-user-pool
+        AutoVerifiedAttributes:
+          - email

@@ -1,0 +1,49 @@
+# Node modules
+node_modules/
+
+# Serverless directories
+.serverless/
+.build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compiled TypeScript files
+dist/
+out/
+*.tsbuildinfo
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Coverage directory used by tools like istanbul/jest
+coverage/
+.nyc_output/
+
+# dotenv environment variables file
+.env
+.env.*
+
+# Ignore AWS credential files
+.aws/
+
+# GitHub Actions working directory
+.github/workflows/*
+
+# Dependency directories
+jspm_packages/
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+*.swp
+
+# MacOS files
+.DS_Store
+
+# Ignore the deployment bucket and specific deployment files
+portex-api-deployment-bucket-dev/
