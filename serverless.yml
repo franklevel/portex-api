@@ -7,6 +7,10 @@ provider:
   runtime: nodejs20.x
   stage: dev
   region: us-east-1
+
+  rollbackConfiguration:
+    enabled: true
+    
   environment:
     DB_HOST: localhost
     DB_PORT: 5432
