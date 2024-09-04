@@ -21,35 +21,17 @@ jobs:
         with:
           node-version: "20.x"
 
+      - name: Print environment variables
+        run: |
+            echo "SLS_ACCESS_KEY=${{ secrets.SLS_ACCESS_KEY }}"
+            echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}"
+            echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
       - name: Set up Serverless Framework
         run: npm install -g serverless
-
-      - name: Check Serverless Token
-        run: |
-          if [ -z "${{ secrets.SERVERLESS_ACCESS_TOKEN }}" ]; then
-            echo "SERVERLESS_ACCESS_TOKEN is not set"
-          else
-            echo "SERVERLESS_ACCESS_TOKEN is set"
-          fi
-
-      - name: Check AWS Access Key
-        run: |
-          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]; then
-            echo "AWS_ACCESS_KEY_ID is not set"
-          else
-            echo "AWS_ACCESS_KEY_ID is set"
-          fi
-
-      - name: Check AWS Secret Access Key
-        run: |
-          if [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
-            echo "AWS_SECRET_ACCESS_KEY is not set"
-          else
-            echo "AWS_SECRET_ACCESS_KEY is set"
-          fi
 
       - name: Configure Serverless Framework
         run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
