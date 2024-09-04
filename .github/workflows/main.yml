@@ -36,7 +36,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Set up Serverless Framework
-        run: npm install -g serverless
+        run: npm install -g serverless@3.26.0
 
       - name: Login Serverless Framework
         run: serverless login
