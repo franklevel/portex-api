@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: "20.x"
 
+      - name: Clean previous build artifacts
+        run: |
+            rm -rf .build || true
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
