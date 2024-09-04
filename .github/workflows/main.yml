@@ -39,7 +39,7 @@ jobs:
         run: npm install -g serverless@3.26.0
 
       - name: Login Serverless Framework
-        run: serverless login
+        run: serverless login --key ${{ secrets.SERVERLESS_ACCESS_KEY }}
         env:
             SLS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
 
