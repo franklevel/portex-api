@@ -36,7 +36,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy with Serverless Framework
-        run: serverless deploy --stage ${{ github.ref_name }}
+        run: serverless deploy --stage ${{ github.ref_name }} --verbose
         env:
           SLS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
           SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
