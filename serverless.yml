@@ -8,8 +8,8 @@ provider:
   stage: dev
   region: us-east-1
 
-  rollbackConfiguration:
-    enabled: true
+  #rollbackConfiguration:
+  #  enabled: true
     
   environment:
     DB_HOST: localhost
