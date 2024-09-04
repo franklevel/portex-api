@@ -31,7 +31,7 @@ jobs:
       #  run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Login to Serverless Framework
-        run: serverless login --token ${{ secrets.SERVERLESS_ACCESS_KEY }}
+        run: serverless login --param="aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" --param="aws_secret_access_key ${{ secrets.SERVERLESS_ACCESS_KEY }}
         #env:
         #  SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
 
