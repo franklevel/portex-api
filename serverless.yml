@@ -5,7 +5,7 @@ build:
 provider:
   name: aws
   runtime: nodejs20.x
-  stage: dev
+  stage: ${ github.ref_name }
   region: us-east-1
 
   #rollbackConfiguration:
